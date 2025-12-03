@@ -1,5 +1,3 @@
-
-
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../main";
 import { Navigate } from "react-router-dom";
@@ -19,7 +17,8 @@ const Dashboard = () => {
     const fetchAppointments = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/appointment/getall",
+          // 🔥 UPDATED URL
+          "https://healthcare-management-backend-yept.onrender.com/api/v1/appointment/getall",
           { withCredentials: true }
         );
         setAppointments(data.appointments);
@@ -35,7 +34,8 @@ const Dashboard = () => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/user/doctors",
+          // 🔥 UPDATED URL
+          "https://healthcare-management-backend-yept.onrender.com/api/v1/user/doctors",
           { withCredentials: true }
         );
         setDoctors(data.doctors || []);
@@ -51,7 +51,8 @@ const Dashboard = () => {
   const handleUpdateStatus = async (appointmentId, status) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/v1/appointment/update/${appointmentId}`,
+        // 🔥 UPDATED URL
+        `https://healthcare-management-backend-yept.onrender.com/api/v1/appointment/update/${appointmentId}`,
         { status },
         { withCredentials: true }
       );
@@ -68,13 +69,15 @@ const Dashboard = () => {
     }
   };
 
-  // ---------------- DELETE APPOINTMENT (NEW) ----------------
+  // ---------------- DELETE APPOINTMENT ----------------
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this appointment?")) return;
+    if (!window.confirm("Are you sure you want to delete this appointment?"))
+      return;
 
     try {
       const { data } = await axios.delete(
-        `http://localhost:4000/api/v1/appointment/delete/${id}`,
+        // 🔥 UPDATED URL
+        `https://healthcare-management-backend-yept.onrender.com/api/v1/appointment/delete/${id}`,
         { withCredentials: true }
       );
       toast.success(data.message);
@@ -125,7 +128,7 @@ const Dashboard = () => {
               <th>Department</th>
               <th>Status</th>
               <th>Visited</th>
-              <th>Action</th> {/* <-- NEW: Added for Delete button */}
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -150,9 +153,15 @@ const Dashboard = () => {
                           handleUpdateStatus(appointment._id, e.target.value)
                         }
                       >
-                        <option value="Pending" className="value-pending">Pending</option>
-                        <option value="Accepted" className="value-accepted">Accepted</option>
-                        <option value="Rejected" className="value-rejected">Rejected</option>
+                        <option value="Pending" className="value-pending">
+                          Pending
+                        </option>
+                        <option value="Accepted" className="value-accepted">
+                          Accepted
+                        </option>
+                        <option value="Rejected" className="value-rejected">
+                          Rejected
+                        </option>
                       </select>
                     </td>
                     <td>
@@ -163,7 +172,6 @@ const Dashboard = () => {
                       )}
                     </td>
 
-                    {/* <-- NEW: Delete button cell */}
                     <td>
                       <button
                         onClick={() => handleDelete(appointment._id)}
@@ -181,7 +189,9 @@ const Dashboard = () => {
                 ))
               : (
                 <tr>
-                  <td colSpan={7} style={{ textAlign: "center" }}>No Appointments Found!</td>
+                  <td colSpan={7} style={{ textAlign: "center" }}>
+                    No Appointments Found!
+                  </td>
                 </tr>
               )}
           </tbody>
@@ -192,4 +202,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
 
