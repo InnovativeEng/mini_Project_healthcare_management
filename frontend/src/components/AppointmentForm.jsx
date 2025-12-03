@@ -1,5 +1,3 @@
-
-
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -36,9 +34,10 @@ const AppointmentForm = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       const { data } = await axios.get(
-        "http://localhost:4000/api/v1/user/doctors",
+        "https://healthcare-management-backend-yept.onrender.com/api/v1/user/doctors",
         { withCredentials: true }
-      );
+        );
+
       setDoctors(data.doctors);
       console.log(data.doctors);
     };
@@ -50,20 +49,20 @@ const AppointmentForm = () => {
     try {
       const hasVisitedBool = Boolean(hasVisited);
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/appointment/post",
+        "https://healthcare-management-backend-yept.onrender.com/api/v1/appointment/post",
         {
           firstName,
           lastName,
           email,
           phone,
-          adharNo, // 🔹 CHANGED from nic
+          adharNo,
           dob,
           gender,
           appointment_date: appointmentDate,
           department,
           doctor_firstName: doctorFirstName,
           doctor_lastName: doctorLastName,
-          hasVisited: hasVisitedBool,
+          hasVisited: Boolean(hasVisited),
           address,
         },
         {
@@ -71,6 +70,7 @@ const AppointmentForm = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
+
       toast.success(data.message);
       // 🔹 RESET FORM
       setFirstName("");
