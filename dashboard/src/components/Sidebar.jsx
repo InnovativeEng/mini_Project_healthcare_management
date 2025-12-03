@@ -17,17 +17,18 @@ const Sidebar = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
   const handleLogout = async () => {
-    await axios
-      .get("http://localhost:4000/api/v1/user/admin/logout", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        toast.success(res.data.message);
-        setIsAuthenticated(false);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+await axios
+  .get("https://healthcare-management-backend-yept.onrender.com/api/v1/user/admin/logout", {
+    withCredentials: true,
+  })
+  .then((res) => {
+    toast.success(res.data.message);
+    setIsAuthenticated(false);
+  })
+  .catch((err) => {
+    toast.error(err.response.data.message);
+  });
+
   };
 
   const navigateTo = useNavigate();
