@@ -26,7 +26,8 @@ const AddNewAdmin = () => {
     try {
       await axios
         .post(
-          "http://localhost:4000/api/v1/user/admin/addnew",
+         "https://healthcare-management-backend-yept.onrender.com/api/v1/user/admin/addnew",
+
           {
             firstName,
             lastName,
